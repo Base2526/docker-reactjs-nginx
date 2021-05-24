@@ -1,16 +1,30 @@
-version: "2"
+# version: "2"
+version: '3.3'
 services:
-  nginx-react:
-    container_name: ngixreactapp
+  reactjs:
+    container_name: reactjs
     build:
-      context: .
+      context: ./reactjs
       dockerfile: Dockerfile
     ports:
       - 8099:3000
     tty: true
     stdin_open: true
     volumes:
-      - ./src:/app/src
+      - ./reactjs/src:/app/src
       # - /app/node_modules # increment performance load page /usr/src/app < จากด้านบน แล้วตามด้วย node_modules 
     # environment:
     #   NODE_ENV: production
+  backend:
+    build: './nodejs'
+    container_name: "backend"
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "9231:9229"
+    command:
+      - node
+      - "--inspect-brk=0.0.0.0"
+      - "." 

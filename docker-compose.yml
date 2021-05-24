@@ -1,0 +1,16 @@
+version: "2"
+services:
+  nginx-react:
+    container_name: ngixreactapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8099:3000
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./src:/app/src
+      # - /app/node_modules # increment performance load page /usr/src/app < จากด้านบน แล้วตามด้วย node_modules 
+    # environment:
+    #   NODE_ENV: production
